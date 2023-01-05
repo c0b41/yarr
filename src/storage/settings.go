@@ -19,6 +19,8 @@ func settingsDefaults() map[string]interface{} {
 	}
 }
 
+var feedSizeDefault int64 = 0
+
 func (s *Storage) GetSettingsValue(key string) interface{} {
 	row := s.db.QueryRow(`select val from settings where key=?`, key)
 	if row == nil {
@@ -91,4 +93,26 @@ func (s *Storage) UpdateSettings(kv map[string]interface{}) bool {
 		}
 	}
 	return true
+}
+
+func (s *Storage) GetFeedSize() int64 {
+	result := feedSizeDefault()
+	rows, err := s.db.Query(`select count(*) as size feeds;`)
+	if err != nil {
+		log.Print(err)
+		return result
+	}
+	for rows.Next() {
+		var key string
+		var val []byte
+		var valDecoded int64
+
+		rows.Scan(&key, &val)
+		if err = json.Unmarshal([]byte(val), &valDecoded); err != nil {
+			log.Print(err)
+			continue
+		}
+		result = valDecoded
+	}
+	return result
 }

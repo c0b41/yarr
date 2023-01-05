@@ -61,7 +61,8 @@ func (s *Server) handler() http.Handler {
 
 func (s *Server) handleIndex(c *router.Context) {
 	c.HTML(http.StatusOK, assets.Template("index.html"), map[string]interface{}{
-		"settings":      s.db.GetSettings(),
+		"settings": s.db.GetSettings(),
+		"feedSize": s.db.GetFeedSize(),
 		"authenticated": s.Username != "" && s.Password != "",
 	})
 }
