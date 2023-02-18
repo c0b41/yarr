@@ -164,7 +164,9 @@ select.form-control:not([multiple]):not([size]) {
   opacity: 0;
   position: absolute;
   z-index: -1;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
+  height: 100%;
 }
 
 .selectgroup + .selectgroup {
@@ -353,6 +355,11 @@ select.form-control:not([multiple]):not([size]) {
   line-height: 1.5;
 }
 
+.content-wrapper {
+  max-width: 60rem;
+  margin: 0 auto;
+}
+
 .content img, .content video {
   max-width: 100%;
   height: auto;
@@ -427,11 +434,11 @@ button.theme-light {
 }
 
 a,
-.btn-link:hover,
-.toolbar-item.active {
+.btn-link:hover {
   color: #0080d4;
 }
 
+.toolbar-item.active,
 .dropdown-item.active,
 .dropdown-item:active,
 .selectgroup input:checked + .selectgroup-label {
